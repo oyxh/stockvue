@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oyxh.stock.dao.StockinfoDao">
+
+	<select id="get" resultType="com.oyxh.stock.domain.StockinfoDO">
+		select
+	`market_city`,	`stock_name`,	`stock_id`,	`present_price`,`yesterday_price`,	`today_price`,	`turnover_volume`,	`outside`,	`inside`,
+		`price_buy_one`,	`volume_buy_one`,	`price_buy_two`,	`volume_buy_two`,	`price_buy_three`,	`volume_buy_three`,	`price_buy_four`,	
+		`volume_buy_four`,	`price_buy_five`,	`volume_buy_five`,	`price_sell_one`,	`volume_sell_one`,	`price_sell_two`,	`volume_sell_two`,	
+		`price_sell_three`,	`volume_sell_three`,	`price_sell_four`,	`volume_sell_four`,	`price_sell_five`,	`volume_sell_five`,	`statis_date`,	
+		`rise`,	`rise_rate`,	`highest_price`,	`lowest_price`,	`turnover`,	`turnover_money`,	`turnover_rate`,	`PE_rate`,	`amplitude`,	
+		`circulation_market`,	`total_market`,	`PB_rate`,	`limit_up`,	`limit_down`
+		from stockinfo where stock_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.oyxh.stock.domain.StockinfoDO">
+		select
+		`market_city`,	`stock_name`,	`stock_id`,	`present_price`,`yesterday_price`,	`today_price`,	`turnover_volume`,	`outside`,	`inside`,
+		`price_buy_one`,	`volume_buy_one`,	`price_buy_two`,	`volume_buy_two`,	`price_buy_three`,	`volume_buy_three`,	`price_buy_four`,	
+		`volume_buy_four`,	`price_buy_five`,	`volume_buy_five`,	`price_sell_one`,	`volume_sell_one`,	`price_sell_two`,	`volume_sell_two`,	
+		`price_sell_three`,	`volume_sell_three`,	`price_sell_four`,	`volume_sell_four`,	`price_sell_five`,	`volume_sell_five`,	`statis_date`,	
+		`rise`,	`rise_rate`,	`highest_price`,	`lowest_price`,	`turnover`,	`turnover_money`,	`turnover_rate`,	`PE_rate`,	`amplitude`,	
+		`circulation_market`,	`total_market`,	`PB_rate`,	`limit_up`,	`limit_down`
+		from stockinfo
+		<where>
+			<if test="stockId != null and stockId != ''"> and stock_id = #{stockId} </if>
+			<if test="stockName != null and stockName != ''"> and stock_name = #{stockName} </if>
+		</where>
+		<choose>
+			<when test="sort != null and sort.trim() != ''">
+				order by ${sort} ${order}
+			</when>
+			<otherwise>
+				order by stock_id desc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+
+</mapper>

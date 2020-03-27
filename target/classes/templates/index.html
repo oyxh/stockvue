@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>vue学习</title>
+<script src="assets/js/vue.js"></script>
+<script src="assets/js/axios.min.js"></script>
+<link rel="stylesheet" href="assets/css/amazeui.min.css" />
+<link rel="stylesheet" href="assets/css/app.css">
+<link rel="stylesheet" href="assets/js/plugins/layui/css/layui.css">
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=EPgo3ahLed1MOQlZDPg1fdl0DN7Pg07w"></script>
+
+<!--加载鼠标绘制工具-->
+<script type="text/javascript" src="assets/js/drawingmanager.js"></script>
+<script type="text/javascript" src="assets/vue/MyControlTool.js"></script>
+<script type="text/javascript" src="assets/js/polygon.js"></script>
+<link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+</head>
+<body data-type="index">
+
+
+    <div class="am-g tpl-g" id="allpagecontent">
+            <!--头部  -->
+        <header>
+               <!--logo -->
+            <div class="am-fl tpl-header-logo">
+                <a href="javascript:;"><img src="assets/img/logo.png" alt=""></a>
+            </div>
+            <!--右侧内容 -->
+            <div class="tpl-header-fluid">
+              <!-- 侧边切换 -->
+                <div class="am-fl tpl-header-switch-button am-icon-list" @click=autoLeft>
+                    <span>
+
+                </span>
+                </div>
+               
+              </div>
+
+        </header>
+   
+        
+          <!-- 侧边导航栏  -->
+        <div class="left-sidebar" :class={active:styleleftactive}>  
+       <!-- 用户信息 -->
+         	<div class="tpl-sidebar-user-panel">
+                <div class="tpl-user-panel-slide-toggleable">
+                    <div class="tpl-user-panel-profile-picture">
+                        <img src="assets/img/user02.png" alt="">
+                    </div>
+                    <span class="user-panel-logged-in-text">
+              		<i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon" th:text="${name}"></i>
+          			   
+          			</span>
+                    <a href="javascript:;" class="tpl-user-panel-action-link"> <span class="am-icon-pencil"></span>账号设置</a>
+                </div>
+            </div>   
+        <!-- 菜单  -->
+            <div >
+            <ul class="sidebar-nav">
+                 <menu-item  v-for="item in menuitems" v-bind:labeltext="item.labeltext" v-bind:styleobject=item.styleobject
+                      :order=item.order @menuitemclick=getMenu ></menu-item>
+                
+            </ul>
+            </div>
+        </div>
+        <div class="right-sidebar">
+        </div>
+        <!-- 内容  -->
+        
+	
+	     <div class="tpl-content-wrapper" id = "mapcontent" :class={active:stylemainactive}>   
+	         
+	        
+	        <div class="tpl-content-wrapper-main" id="mapcavans" >
+	        	
+	        	<div id="map1_container" :class={isshow:stylemapshow}>
+	        		<div id="allmap1" > 
+	        			<div id="map" ></div>
+	        			
+				    </div>
+	        		
+	        		<div id="control" >
+						<input type="button" value="清除所有覆盖物" onclick="clearAll()"/>	
+						<input type="button" value="开通/关闭编辑" onclick="openEdit()"/>
+						<input type="button" value="多边形函数测试" onclick="ftest()"/>
+					</div>
+	        		
+	        	</div>
+	        	
+	            <div class="panelWrap" :class={isshow:stylepanelwrapshow}>
+	            	<div class="panelWrapson" :class={isshow:stylepanelwrapshow}>
+	            		<layer-item :order=layerOrder ></layer-item>
+	            		
+	            		
+	            	</div>
+				  
+	        	
+               </div>  
+               <form   id="popBox" class="popbox grid-name">
+				    <div class="close">
+				        <a href="javascript:void(0)" onclick="closeBox()">关闭</a>
+				    </div>
+				   
+				    <div class="content" style= "margin:0 auto;">
+				    	<ul>
+							<li><span>网格名称:</span><input id="gridname" type="text" name="firstname" value="Mickey"></li>		
+							<li><span>网格经理:</span><input id="gridmana" type="text" name="lastname" value="Mouse"></li>
+							<li><input id="submit" type="submit" value="确定" style="width:50px; "><input id="reset" type="reset" style = "width:50px;position:relative;left:100px"  value="重填" ></li>
+						</ul>
+					</div>
+				</form>
+             
+           </div>
+	     
+          </div> 
+        
+        
+    </div>
+    <script src="assets/js/plugins/layui/layui.all.js"></script>
+    <script src="assets/vue/index/menuItem.js"></script>
+    <script src="assets/vue/index/singleLayer.js"></script>
+    <script src="assets/vue/index/layerItem.js"></script>
+  
+    <script th:inline="javascript" > 
+  		  
+         new Vue({
+            el: '#allpagecontent',
+            components: {
+                'menu-item':menuItem,
+                'layer-item':layerItem
+                
+            },
+            data:{
+      		menuitems: [
+		      {labeltext:"图层管理",styleobject:"am-icon-home sidebar-nav-link-logo",order:1},
+		      {labeltext:"统计分析",styleobject:"am-icon-table sidebar-nav-link-logo",order:2},
+		      {labeltext:"导入数据",styleobject:"am-icon-calendar sidebar-nav-link-logo" ,order:3},
+		      {labeltext:" 表单",styleobject:"am-icon-wpforms sidebar-nav-link-logo",order:4 }
+              ],
+             styleleftactive:false,    //左边栏是否活动
+             stylemainactive:false,  //
+             stylepanelwrapshow:false,
+             stylemapshow:false,
+             layerOrder: 1   //当前操作图层框的菜单栏，为1表示当前操作框为1图层
+             },
+             methods:{
+                autoLeft(){
+                   
+                    this.styleleftactive=!this.styleleftactive;
+                    this.stylemainactive=!this.stylemainactive;
+                    
+                },
+                getMenu(order){
+                    if(this.layerOrder == order){
+                    
+                        this.stylepanelwrapshow=!this.stylepanelwrapshow;
+                        this.stylemapshow=!this.stylemapshow;
+                    }else{
+                        this.layerOrder = order;
+                    }
+                }
+             }
+          });
+          
+        var map = new BMap.Map('map',{enableMapClick: false});
+	    var poi = new BMap.Point(116.307852,40.057031);
+	    map.centerAndZoom(poi, 16);
+	    map.enableScrollWheelZoom();
+	    
+	    function clearAll(){
+	    	map.clearOverlays();
+	    }
+	    
+	    function openEdit(){
+	    	var overlays = map.getOverlays();
+	    	overlays[overlays.length -1].enableEditing();
+	    }
+	      function ftest(){
+	    	var overlays = map.getOverlays();
+	    	for(i in overlays){ 	
+	    		
+	    	var exline ={	S:{
+		          x:0,
+		          y:0,
+		        },
+		        E:{
+		          x:0,
+		          y:0,
+		        }};
+	    		console.log(overlays[i].toString());
+	    		console.log(getPolygonLine((overlays[i]).getPath(),exline));
+	    	}
+	    }
+
+    </script>
+    </body>
+</html>
