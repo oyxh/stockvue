@@ -39,6 +39,28 @@
 			limit #{offset}, #{limit}
 		</if>
 	</select>
-
+	
+	<insert id="batchAdd" parameterType="com.oyxh.stock.domain.StockinfoDO"
+		useGeneratedKeys="true" keyProperty="stockId">
+		insert into stockinfo
+          (`market_city`,	`stock_name`,	`stock_id`,	`present_price`,`yesterday_price`,	`today_price`,	`turnover_volume`,	`outside`,	`inside`,
+		`price_buy_one`,	`volume_buy_one`,	`price_buy_two`,	`volume_buy_two`,	`price_buy_three`,	`volume_buy_three`,	`price_buy_four`,	
+		`volume_buy_four`,	`price_buy_five`,	`volume_buy_five`,	`price_sell_one`,	`volume_sell_one`,	`price_sell_two`,	`volume_sell_two`,	
+		`price_sell_three`,	`volume_sell_three`,	`price_sell_four`,	`volume_sell_four`,	`price_sell_five`,	`volume_sell_five`,	`statis_date`,	
+		`rise`,	`rise_rate`,	`highest_price`,	`lowest_price`,	`turnover`,	`turnover_money`,	`turnover_rate`,	`PE_rate`,	`amplitude`,	
+		`circulation_market`,	`total_market`,	`PB_rate`,	`limit_up`,	`limit_down`)
+            values
+          <foreach collection ="list" item="item" index= "index" separator =",">
+           (
+				#{item.marketCity},#{item.stockName},#{item.stockId},#{item.presentPrice},#{item.yesterdayPrice},#{item.todayPrice},
+				#{item.turnoverVolume},#{item.outside},#{item.inside},#{item.priceBuyOne},#{item.volumeBuyOne},#{item.priceBuyTwo},
+				#{item.volumeBuyTwo},#{item.priceBuyThree},#{item.volumeBuyThree},#{item.priceBuyFour},#{item.volumeBuyFour},#{item.priceBuyFive},
+				#{item.volumeBuyFive},#{item.priceSellOne},#{item.volumeSellOne},#{item.priceSellTwo},#{item.volumeSellTwo},#{item.priceSellThree},
+				#{item.volumeSellThree},#{item.priceSellFour},#{item.volumeSellFour},#{item.priceSellFive},#{item.volumeSellFive},#{item.statisDate},
+				#{item.rise},#{item.riseRate},#{item.highestPrice},#{item.lowestPrice},#{item.turnover},#{item.turnoverMoney},#{item.turnoverRate},
+				#{item.PERate},#{item.amplitude},#{item.circulationMarket},#{item.totalMarket},#{item.PBRate},#{item.limitUp},#{item.limitDown}
+           )
+          </foreach >
+	</insert>
 
 </mapper>

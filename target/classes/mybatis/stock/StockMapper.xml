@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oyxh.stock.dao.StockDao">
+
+	<select id="get" resultType="com.oyxh.stock.domain.StockDO">
+		select
+	`stock_id`,`stock_name`
+		from stock where stock_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.oyxh.stock.domain.StockDO">
+		select
+		`stock_id`,`stock_name`
+		from stock
+		<where>
+			<if test="stockId != null and stockId != ''"> and stock_id = #{stockId} </if>
+			<if test="stockName != null and stockName != ''"> and stock_name = #{stockName} </if>
+		</where>
+		<choose>
+			<when test="sort != null and sort.trim() != ''">
+				order by ${sort} ${order}
+			</when>
+			<otherwise>
+				order by stock_id desc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+
+
+</mapper>

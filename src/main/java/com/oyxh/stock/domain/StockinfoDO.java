@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class StockinfoDO {
+	private BigInteger 	id;
 	private String marketCity;
 	private String stockName;
 	private String stockId;
@@ -48,6 +49,60 @@ public class StockinfoDO {
 	private BigDecimal PBRate;
 	private BigDecimal limitUp;
 	private BigDecimal limitDown;
+	public StockinfoDO(String[] stockInfo) {  //构造函数的序列来自第三方网站的顺序
+		// TODO Auto-generated constructor stub
+		this.marketCity = stockInfo[0].substring(2, 4);
+		this.stockId = stockInfo[2];
+		this.stockName = stockInfo[1];
+		this.presentPrice=new BigDecimal(stockInfo[3]);
+		this.yesterdayPrice=new BigDecimal(stockInfo[4]);
+		this.todayPrice=new BigDecimal(stockInfo[5]);
+		this.turnoverVolume=new BigDecimal(stockInfo[6]);
+		this.outside=new BigDecimal(stockInfo[7]);
+		this.inside=new BigDecimal(stockInfo[8]);
+		this.priceBuyOne=new BigDecimal(stockInfo[9]);
+		this.volumeBuyOne=new BigDecimal(stockInfo[10]);
+		this.priceBuyTwo=new BigDecimal(stockInfo[11]);
+		this.volumeBuyTwo=new BigDecimal(stockInfo[12]);
+		this.priceBuyThree=new BigDecimal(stockInfo[13]);
+		this.volumeBuyThree=new BigDecimal(stockInfo[14]);
+		this.priceBuyFour=new BigDecimal(stockInfo[15]);
+		this.volumeBuyFour=new BigDecimal(stockInfo[16]);
+		this.priceBuyFive=new BigDecimal(stockInfo[17]);
+		this.volumeBuyFive=new BigDecimal(stockInfo[18]);
+		this.priceSellOne=new BigDecimal(stockInfo[19]);
+		this.volumeSellOne=new BigDecimal(stockInfo[20]);
+		this.priceSellTwo=new BigDecimal(stockInfo[21]);
+		this.volumeSellTwo=new BigDecimal(stockInfo[22]);
+		this.priceSellThree=new BigDecimal(stockInfo[23]);
+		this.volumeSellThree=new BigDecimal(stockInfo[24]);
+		this.priceSellFour=new BigDecimal(stockInfo[25]);
+		this.volumeSellFour=new BigDecimal(stockInfo[26]);
+		this.priceSellFive=new BigDecimal(stockInfo[27]);
+		this.volumeSellFive=new BigDecimal(stockInfo[28]);
+		this.statisDate=new BigInteger(stockInfo[30]);
+		this.rise=new BigDecimal(stockInfo[31]);
+		this.riseRate=new BigDecimal(stockInfo[32]);
+		this.highestPrice=new BigDecimal(stockInfo[33]);
+		this.lowestPrice=new BigDecimal(stockInfo[34]);
+		this.turnover=new BigDecimal(stockInfo[36]);
+		this.turnoverMoney=new BigDecimal(stockInfo[37]);
+		this.turnoverRate=new BigDecimal(stockInfo[38]);
+		this.PERate=new BigDecimal(stockInfo[39]);
+		this.amplitude=new BigDecimal(stockInfo[43]);
+		this.circulationMarket=new BigDecimal(stockInfo[44]);
+		this.totalMarket=new BigDecimal(stockInfo[45]);
+		this.PBRate=new BigDecimal(stockInfo[46]);
+		this.limitUp=new BigDecimal(stockInfo[47]);
+		this.limitDown=new BigDecimal(stockInfo[48]);
+
+	}
+	public BigInteger getId() {
+		return id;
+	}
+	public void setId(BigInteger id) {
+		this.id = id;
+	}
 	public String getMarketCity() {
 		return marketCity;
 	}

@@ -37,6 +37,14 @@ public class StockinfoServiceImp implements StockinfoService {
 		return stockinfoMapper.list();
 	}
 
+	@Override
+	public int batchAdd(List<StockinfoDO> stockinfoDOs) {
+		// TODO Auto-generated method stub
+		
+		int r = stockinfoMapper.batchAdd(stockinfoDOs);
+		return r;
+	}
+
 
 
 }

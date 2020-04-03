@@ -16,6 +16,6 @@ public interface StockinfoService {
 	StockinfoDO get(Long id);
 
 	List<StockinfoDO> list();
-
+	int batchAdd(List<StockinfoDO> stockinfoDOs);
 
 }

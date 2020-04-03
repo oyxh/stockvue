@@ -5,6 +5,7 @@ package com.oyxh.stock.dao;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
+
 import com.oyxh.stock.domain.StockinfoDO;
 
 
@@ -20,4 +21,5 @@ public interface StockinfoDao {
 
 	StockinfoDO get(Long userId);
 	List<StockinfoDO> list();
+	int batchAdd(List<StockinfoDO> stockinfoDOs);
 }
