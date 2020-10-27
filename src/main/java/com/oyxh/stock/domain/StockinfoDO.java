@@ -51,51 +51,61 @@ public class StockinfoDO {
 	private BigDecimal limitDown;
 	public StockinfoDO(String[] stockInfo) {  //构造函数的序列来自第三方网站的顺序
 		// TODO Auto-generated constructor stub
-		this.marketCity = stockInfo[0].substring(2, 4);
-		this.stockId = stockInfo[2];
-		this.stockName = stockInfo[1];
-		this.presentPrice=new BigDecimal(stockInfo[3]);
-		this.yesterdayPrice=new BigDecimal(stockInfo[4]);
-		this.todayPrice=new BigDecimal(stockInfo[5]);
-		this.turnoverVolume=new BigDecimal(stockInfo[6]);
-		this.outside=new BigDecimal(stockInfo[7]);
-		this.inside=new BigDecimal(stockInfo[8]);
-		this.priceBuyOne=new BigDecimal(stockInfo[9]);
-		this.volumeBuyOne=new BigDecimal(stockInfo[10]);
-		this.priceBuyTwo=new BigDecimal(stockInfo[11]);
-		this.volumeBuyTwo=new BigDecimal(stockInfo[12]);
-		this.priceBuyThree=new BigDecimal(stockInfo[13]);
-		this.volumeBuyThree=new BigDecimal(stockInfo[14]);
-		this.priceBuyFour=new BigDecimal(stockInfo[15]);
-		this.volumeBuyFour=new BigDecimal(stockInfo[16]);
-		this.priceBuyFive=new BigDecimal(stockInfo[17]);
-		this.volumeBuyFive=new BigDecimal(stockInfo[18]);
-		this.priceSellOne=new BigDecimal(stockInfo[19]);
-		this.volumeSellOne=new BigDecimal(stockInfo[20]);
-		this.priceSellTwo=new BigDecimal(stockInfo[21]);
-		this.volumeSellTwo=new BigDecimal(stockInfo[22]);
-		this.priceSellThree=new BigDecimal(stockInfo[23]);
-		this.volumeSellThree=new BigDecimal(stockInfo[24]);
-		this.priceSellFour=new BigDecimal(stockInfo[25]);
-		this.volumeSellFour=new BigDecimal(stockInfo[26]);
-		this.priceSellFive=new BigDecimal(stockInfo[27]);
-		this.volumeSellFive=new BigDecimal(stockInfo[28]);
-		this.statisDate=new BigInteger(stockInfo[30]);
-		this.rise=new BigDecimal(stockInfo[31]);
-		this.riseRate=new BigDecimal(stockInfo[32]);
-		this.highestPrice=new BigDecimal(stockInfo[33]);
-		this.lowestPrice=new BigDecimal(stockInfo[34]);
-		this.turnover=new BigDecimal(stockInfo[36]);
-		this.turnoverMoney=new BigDecimal(stockInfo[37]);
-		this.turnoverRate=new BigDecimal(stockInfo[38]);
-		this.PERate=new BigDecimal(stockInfo[39]);
-		this.amplitude=new BigDecimal(stockInfo[43]);
-		this.circulationMarket=new BigDecimal(stockInfo[44]);
-		this.totalMarket=new BigDecimal(stockInfo[45]);
-		this.PBRate=new BigDecimal(stockInfo[46]);
-		this.limitUp=new BigDecimal(stockInfo[47]);
-		this.limitDown=new BigDecimal(stockInfo[48]);
-
+		if(isEmpty(stockId)) {
+			this.marketCity = stockInfo[0].substring(2, 4);
+			this.stockId = stockInfo[2];
+			this.stockName = stockInfo[1];
+			this.presentPrice=isEmpty(stockInfo[3])?null:new BigDecimal(stockInfo[3]);
+			this.yesterdayPrice=isEmpty(stockInfo[4])?null:new BigDecimal(stockInfo[4]);
+			this.todayPrice=isEmpty(stockInfo[5])?null:new BigDecimal(stockInfo[5]);
+			this.turnoverVolume=isEmpty(stockInfo[6])?null:new BigDecimal(stockInfo[6]);
+			this.outside=isEmpty(stockInfo[7])?null:new BigDecimal(stockInfo[7]);
+			this.inside=isEmpty(stockInfo[8])?null:new BigDecimal(stockInfo[8]);
+			this.priceBuyOne=isEmpty(stockInfo[9])?null:new BigDecimal(stockInfo[9]);
+			this.volumeBuyOne=isEmpty(stockInfo[10])?null:new BigDecimal(stockInfo[10]);
+			this.priceBuyTwo=isEmpty(stockInfo[11])?null:new BigDecimal(stockInfo[11]);
+			this.volumeBuyTwo=isEmpty(stockInfo[12])?null:new BigDecimal(stockInfo[12]);
+			this.priceBuyThree=isEmpty(stockInfo[13])?null:new BigDecimal(stockInfo[13]);
+			this.volumeBuyThree=isEmpty(stockInfo[14])?null:new BigDecimal(stockInfo[14]);
+			this.priceBuyFour=isEmpty(stockInfo[15])?null:new BigDecimal(stockInfo[15]);
+			this.volumeBuyFour=isEmpty(stockInfo[16])?null:new BigDecimal(stockInfo[16]);
+			this.priceBuyFive=isEmpty(stockInfo[17])?null:new BigDecimal(stockInfo[17]);
+			this.volumeBuyFive=isEmpty(stockInfo[18])?null:new BigDecimal(stockInfo[18]);
+			this.priceSellOne=isEmpty(stockInfo[19])?null:new BigDecimal(stockInfo[19]);
+			this.volumeSellOne=isEmpty(stockInfo[20])?null:new BigDecimal(stockInfo[20]);
+			this.priceSellTwo=isEmpty(stockInfo[21])?null:new BigDecimal(stockInfo[21]);
+			this.volumeSellTwo=isEmpty(stockInfo[22])?null:new BigDecimal(stockInfo[22]);
+			this.priceSellThree=isEmpty(stockInfo[23])?null:new BigDecimal(stockInfo[23]);
+			this.volumeSellThree=isEmpty(stockInfo[24])?null:new BigDecimal(stockInfo[24]);
+			this.priceSellFour=isEmpty(stockInfo[25])?null:new BigDecimal(stockInfo[25]);
+			this.volumeSellFour=isEmpty(stockInfo[26])?null:new BigDecimal(stockInfo[26]);
+			this.priceSellFive=isEmpty(stockInfo[27])?null:new BigDecimal(stockInfo[27]);
+			this.volumeSellFive=isEmpty(stockInfo[28])?null:new BigDecimal(stockInfo[28]);
+			this.statisDate=isEmpty(stockInfo[30])?null:new BigInteger(stockInfo[30]);
+			this.rise=isEmpty(stockInfo[31])?null:new BigDecimal(stockInfo[31]);
+			this.riseRate=isEmpty(stockInfo[32])?null:new BigDecimal(stockInfo[32]);
+			this.highestPrice=isEmpty(stockInfo[33])?null:new BigDecimal(stockInfo[33]);
+			this.lowestPrice=isEmpty(stockInfo[34])?null:new BigDecimal(stockInfo[34]);
+			this.turnover=isEmpty(stockInfo[36])?null:new BigDecimal(stockInfo[36]);
+			this.turnoverMoney=isEmpty(stockInfo[37])?null:new BigDecimal(stockInfo[37]);
+			this.turnoverRate=isEmpty(stockInfo[38])?null:new BigDecimal(stockInfo[38]);
+			this.PERate=isEmpty(stockInfo[39])?null:new BigDecimal(stockInfo[39]);
+			this.amplitude=isEmpty(stockInfo[43])?null:new BigDecimal(stockInfo[43]);
+			this.circulationMarket=isEmpty(stockInfo[44])?null:new BigDecimal(stockInfo[44]);
+			this.totalMarket=isEmpty(stockInfo[45])?null:new BigDecimal(stockInfo[45]);
+			this.PBRate=isEmpty(stockInfo[46])?null:new BigDecimal(stockInfo[46]);
+			this.limitUp=isEmpty(stockInfo[47])?null:new BigDecimal(stockInfo[47]);
+			this.limitDown=isEmpty(stockInfo[48])?null:new BigDecimal(stockInfo[48]);
+		}
+	}
+	public boolean isEmpty(String str) {
+		 if (str == null){
+		      return true;
+		 }
+		 if(str.trim().equals("")) {
+			 return true;
+		 }
+		return false;
 	}
 	public BigInteger getId() {
 		return id;

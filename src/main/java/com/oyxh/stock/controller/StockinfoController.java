@@ -91,7 +91,7 @@ public class StockinfoController extends BaseController {
 
 	    }*/
 	   
-	   @Scheduled(cron="0 5/1 * ? * MON-FRI")
+	   @Scheduled(cron="0 0/30 * ? * MON-FRI")
 	   public void queryStockFromInternet() {
 		   System.out.println("this is from controll");
 		   List<StockDO> stockList = this.queryAllStocks();
@@ -103,13 +103,15 @@ public class StockinfoController extends BaseController {
 			final CloseableHttpClient httpclient = HttpClients.createDefault();
 			List<StockinfoDO> stockinfoList = new ArrayList();
 			 for(StockDO stockdo : stockList) {
+				 System.out.println(stockdo.getStockId());
 				 String url = "http://qt.gtimg.cn/q=";
 				 String stockId = stockdo.getStockId();
-				   if( stockId.compareTo("600000") < 0) {
-			        	url = url + "sz" + stockId;
-			        }else {
+				   if( stockId.compareTo("600000") >= 0 || stockId.equals("000991")) {
 			        	url = url + "sh" + stockId;
+			        }else {
+			        	url = url + "sz" + stockId;
 			        }
+				   System.out.println(url);
 			        final HttpGet request1 = new HttpGet(url);
 			        request1.setConfig(proxyConfig);
 			        CloseableHttpResponse response1;
@@ -118,11 +120,12 @@ public class StockinfoController extends BaseController {
 						System.out.println(response1.getCode() + " " + response1.getReasonPhrase());
 						if(response1.getCode()==200) {
 							String[] stockInfo = EntityUtils.toString(response1.getEntity()).split("~");
-							StockinfoDO stockinfodo = new StockinfoDO(stockInfo);
-							System.out.println(stockinfodo.getStockName());
-							stockinfoList.add(stockinfodo);
+							if(stockInfo.length >30) {
+								StockinfoDO stockinfodo = new StockinfoDO(stockInfo);
+								stockinfoList.add(stockinfodo);
+							}
+							
 						}
-						System.out.println("ok");
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
